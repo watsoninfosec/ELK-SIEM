@@ -84,25 +84,35 @@ sudo systemctl restart elasticsearch
 ~~~
 
 
-Now lets edit the Kibana.yml & elasticsearch.yml files and add this security feature at the end of the file:
+- In your Elasticsearch.yml files and add this security feature at the end of the file:
 
+~~~
+sudo nano /etc/elasticsearch/elasticsearch.yml
+~~~
 - Security Feature:
 
 ~~~
 xpack.security.enabled: true
+xpack.security.authc.api_key.enabled: true
 ~~~
 
-- Edit these files:
+- In your Kibana.yml files and add this security feature at the end of the file:
 
 ~~~
 sudo nano /etc/kibana/kibana.yml
-sudo nano /etc/elasticsearch/elasticsearch.yml
+~~~
+- Security Feature:
+
+~~~
+xpack.security.enabled: true
+xpack.encryptedSavedObjects.encryptionKey: "something_at_least_32_characters"
 ~~~
 
-- Now lets restart Kibana:
+- Now lets restart Kibana & Elasticsearch:
 
 ~~~
 sudo systemctl restart kibana
+sudo systemctl restart elasticsearch
 ~~~
 
 
