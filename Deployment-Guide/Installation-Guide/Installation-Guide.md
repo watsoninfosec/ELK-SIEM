@@ -463,7 +463,7 @@ Dec 15 00:44:16 test01 systemd[1]: elasticsearch.service: Start operation timed 
 Dec 15 00:44:16 test01 systemd[1]: Failed to start Elasticsearch.
 ~~~
 
-Try undoing the changes you have done by, **(#)** commenting you changes then save the file and restart the services. This will confirm if you recent last changes have made the file unstable!
+Try undoing the changes you have done by, **(#)** commenting you changes then save the file and restart the services. This will confirm if your recent last changes have made the file unstable!
 
 This happens when an entry was not taken in the **.yml** file, the file may be damaged or corrupted.
 
