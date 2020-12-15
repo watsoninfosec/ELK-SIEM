@@ -81,6 +81,9 @@ You will need physical hardware to install.
 - Security Configuration Guide: 
 > https://github.com/watsoninfosec/ELK-SIEM/blob/main/Deployment-Guide/Security-Module/Security-Module.md
 
+- Beats Modules:
+> https://github.com/watsoninfosec/ELK-SIEM/blob/main/Deployment-Guide/Beats-Setup/Setup.Guide.md
+
 - Wazuh Install Guide: 
 > https://github.com/watsoninfosec/ELK-SIEM/blob/main/Deployment-Guide/Wazuh-Guide/Setup-Guide.md
 
