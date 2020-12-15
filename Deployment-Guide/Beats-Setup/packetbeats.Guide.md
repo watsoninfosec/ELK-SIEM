@@ -318,6 +318,6 @@ Note: Before you can create this dashboard, you will need to create an Index for
 > https://www.elastic.co/guide/en/kibana/current/index-patterns.html
 
 
-![](/ELK-SIEM\Deployment-Guide\Beats-Setup\img\test.png)
+![](https://github.com/watsoninfosec/ELK-SIEM/blob/main/Deployment-Guide/Beats-Setup/img/Test.png)
 
 # Congradulations packetbeats is installed!
