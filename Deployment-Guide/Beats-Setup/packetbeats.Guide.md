@@ -189,7 +189,7 @@ Note: If you see some erros with API, but everything else is ok. Then it worked!
 
 Note: If you get an output like this, then it worked, except for **API** failed. I am still working on that.
 
-```json
+~~~
 PS C:\Program Files\Packetbeat> .\packetbeat.exe setup -e
 2020-12-14T23:16:14.441-0600    INFO    instance/beat.go:645    Home path: [C:\Program Files\Packetbeat] Config path: [C:\Program Files\Packetbeat] Data path: [C:\Program Files\Packetbeat\
 data] Logs path: [C:\Program Files\Packetbeat\logs]
@@ -238,7 +238,7 @@ us fails: fail to execute the HTTP GET request: Get "http://192.168.80.128:5601/
 Exiting: error connecting to Kibana: fail to get the Kibana version: HTTP GET request to http://192.168.80.128:5601/api/status fails: fail to execute the HTTP GET request: Get "http://192.
 168.80.128:5601/api/status": EOF. Response: .
 PS C:\Program Files\Packetbeat>
-```
+~~~
 
 - Now lets run **packetbeats**:
 
