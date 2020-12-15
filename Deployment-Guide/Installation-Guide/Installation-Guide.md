@@ -60,7 +60,7 @@ sudo nano 00-installer-config.yaml
 
 - Just copy and modify the contents with your data below, then paste it back in and save with CTRL + x:
 
-```json
+~~~
 network:
   version: 2
   renderer: networkd
@@ -71,7 +71,7 @@ network:
      gateway4: 192.168.0.1
      nameservers:
        addresses: [8.8.8.8,8.8.4.4]
-```
+~~~
 
 - Once that is done restart services:
 
@@ -450,7 +450,7 @@ Security of the devices is not setup, we will setup that process in the next Gui
 # Troubleshotting Tips
 - If you get an error messgae like this for **Kibana** , **Elasticsearch** or **Logstash**:
 
-```json
+~~~
 ● elasticsearch.service - Elasticsearch
    Loaded: loaded (/usr/lib/systemd/system/elasticsearch.service; enabled; vendor preset: ena   Active: failed (Result: timeout) since Tue 2020-12-15 00:44:16 UTC; 24min ago
      Docs: https://www.elastic.co
@@ -461,7 +461,7 @@ Security of the devices is not setup, we will setup that process in the next Gui
 Dec 15 00:45:11 test01 systemd[1]: Starting Elasticsearch...
 Dec 15 00:44:16 test01 systemd[1]: elasticsearch.service: Start operation timed out. TerminatDec 15 00:44:16 test01 systemd[1]: elasticsearch.service: Failed with result 'timeout'.
 Dec 15 00:44:16 test01 systemd[1]: Failed to start Elasticsearch.
-```
+~~~
 
 Try undoing the changes you have done by, **(#)** commenting you changes then save the file and restart the services. This will confirm if you recent last changes have made the file unstable!
 
