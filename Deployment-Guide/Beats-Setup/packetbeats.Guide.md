@@ -131,7 +131,7 @@ setup.kibana:
 This part will add **dns** information about the host.
 - Now lets add this block of text under **processors** and don't forget to change your **Nameserver1,Nameserver2** to your own DNS of you choice.
   
-```json
+~~~
 processors:
 - dns:
     type: reverse
@@ -151,7 +151,7 @@ processors:
     nameservers: ['Nameserver1', 'Nameserver2']
     timeout: 500ms
     tag_on_failure: [_dns_reverse_lookup_failed]
-```
+~~~
 
 
 - Now lets check which Interface we need to enable:

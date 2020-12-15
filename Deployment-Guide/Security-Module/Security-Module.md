@@ -165,7 +165,11 @@ Once this process is setup you will now have a secure setup of Elasticseach + Ki
 
 # Conclusion
 
-We now have our security features enabled and working. 
+We now have our security features enabled and working. We can now setup some beats modules for more security data!
+
+- Packetbeats Module:
+
+> https://github.com/watsoninfosec/ELK-SIEM/blob/main/Deployment-Guide/Beats-Setup/packetbeats.Guide.md
 
 - Optional Setup Step!
 
