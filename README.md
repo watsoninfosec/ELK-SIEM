@@ -4,6 +4,8 @@
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/dwyl/esta/issues) 
  
  [![Anurag's github stats](https://github-readme-stats.vercel.app/api?username=watsoninfosec&theme=blue-green)](https://github.com/anuraghazra/github-readme-stats)
+
+----
 - Creating an Elasticsearch + Kibana + Wazuh SIEM 
 
 These documents are going to show you how I setup my ELK-SIEM + Wazuh workstations. This process can take a bit to complete and some parts are just import and you are done. Now these installs are two different devices, which are similar. While very different with how you ingest data and install agents. 
