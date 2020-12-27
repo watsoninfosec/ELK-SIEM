@@ -1,4 +1,4 @@
-# Securing Our ELK-SIEM
+# Securing our ELK-SIEM
 
 This guide will walk you through on setting up security of your ELK-SIEM so that basic security features will be enabled.
 
@@ -126,6 +126,8 @@ cd /usr/share/elasticsearch/bin
 sudo ./elasticsearch-setup-passwords auto
 ~~~
 
+Note: Copy the user names and document them for safe keeping, because you will need these names later in your setup.
+
 - Now we must go back again and add our elastic user login creds:
 
 ~~~
@@ -141,25 +143,36 @@ elasticsearch.password: "oZdTyaMMxCLaNmaW9udf"
 
 This will create the system users for the login.
 
-- Now restart Kibana:
+- Now restart Kibana service:
 
 ~~~
 sudo systemctl restart kibana
 ~~~
 
-Note: Copy the user names and document them for safe keeping, because you will need these names later in your setup.
+- Now to access Kibana type in your IP address like this:
+> https://192.168.0.25:5601
+
 
 Once this process is setup you will now have a secure setup of Elasticseach + Kibana ELK-SIEM.
 
-- You can login with the user: **elastic** then follow this guide:
+- You can login with the user: **elastic** then follow this guide to create your own user account:
 
-https://www.elastic.co/guide/en/elasticsearch/reference/current/get-started-users.html
+> https://www.elastic.co/guide/en/elasticsearch/reference/current/get-started-users.html
 
+- Also, you can change passwords for the built in accounts if need be for security reasons.
 
-## Now you can login and explore!
+## All set!
 
 # Conclusion
 
-We now have our security features enabled and working, so at this point you can navigate to the: **Wazuh Setup Guide** 
-https://github.com/watsoninfosec/ELK-SIEM/blob/main/Deployment-Guide/Wazuh-Guide/Setup-Guide.md
+We now have our security features enabled and working. We can now setup some beats modules for more security data!
+
+- Packetbeats Module:
+
+> https://github.com/watsoninfosec/ELK-SIEM/blob/main/Deployment-Guide/Beats-Setup/packetbeats.Guide.md
+
+- Optional Setup Step!
+
+So at this point you can navigate to the: **Wazuh Setup Guide** If you want to setup this machine as well: 
+> https://github.com/watsoninfosec/ELK-SIEM/blob/main/Deployment-Guide/Wazuh-Guide/Setup-Guide.md
 

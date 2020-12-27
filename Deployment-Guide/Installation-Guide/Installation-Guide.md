@@ -215,7 +215,7 @@ http://my_ip_address_here:9200
 
 Once you hit enter you shoud see something like this:
 
-~~~
+```json
 {
   "name" : "elk-siem",
   "cluster_name" : "elasticsearch",
@@ -233,7 +233,7 @@ Once you hit enter you shoud see something like this:
   },
   "tagline" : "You Know, for Search"
 }
-~~~
+```
 
 This means that the system in running Elasticsearch and it has been installed. Now lets enable it to run on boot.
 
@@ -444,4 +444,29 @@ Now you have a functional ELK-SIEM stack installed on your Ubuntu system. I reco
 Customize data streams with Logstash, use different Beats modules to gather various types of data, and utilize Kibana for easy browsing through log files.
 
 Security of the devices is not setup, we will setup that process in the next Guide Named: **Security-Module**
-https://github.com/watsoninfosec/ELK-SIEM/blob/main/Deployment-Guide/Security-Module/Security-Module.md
+> https://github.com/watsoninfosec/ELK-SIEM/blob/main/Deployment-Guide/Security-Module/Security-Module.md
+
+
+# Troubleshotting Tips
+- If you get an error messgae like this for **Kibana** , **Elasticsearch** or **Logstash**:
+
+~~~
+● elasticsearch.service - Elasticsearch
+   Loaded: loaded (/usr/lib/systemd/system/elasticsearch.service; enabled; vendor preset: ena   Active: failed (Result: timeout) since Tue 2020-12-15 00:44:16 UTC; 24min ago
+     Docs: https://www.elastic.co
+  Process: 1007 ExecStart=/usr/share/elasticsearch/bin/systemd-entrypoint -p ${PID_DIR}/elast Main PID: 1007 (code=killed, signal=TERM)
+    Tasks: 0 (limit: 4631)
+   CGroup: /system.slice/elasticsearch.service
+
+Dec 15 00:45:11 test01 systemd[1]: Starting Elasticsearch...
+Dec 15 00:44:16 test01 systemd[1]: elasticsearch.service: Start operation timed out. TerminatDec 15 00:44:16 test01 systemd[1]: elasticsearch.service: Failed with result 'timeout'.
+Dec 15 00:44:16 test01 systemd[1]: Failed to start Elasticsearch.
+~~~
+
+Try undoing the changes you have done by, **(#)** commenting you changes then save the file and restart the services. This will confirm if your recent last changes have made the file unstable!
+
+This happens when an entry was not taken in the **.yml** file, the file may be damaged or corrupted.
+
+Once that is done, everything should work after that!
+
+-----
