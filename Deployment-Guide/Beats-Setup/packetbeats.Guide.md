@@ -47,7 +47,7 @@ Once that is done then we can configure the application.
 ~~~
 cd 'C:\Program Files\Packetbeat'
 ~~~
-- Then enable this script:
+- Then enable scripts to run:
 ~~~
 Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser 
 ~~~
