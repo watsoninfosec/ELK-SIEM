@@ -22,6 +22,11 @@ Before we start, we will need this file to be able to capture packets on our NIC
 - Download this application and install it:
 > https://nmap.org/npcap/dist/npcap-1.10.exe
 
+- Next we will need to install Noepad++ to edit the .yml file.
+
+> https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v7.9.2/npp.7.9.2.Installer.x64.exe
+
+
 - Next we will need the **packetbeats** zip file:point_down:.
 
 - **packetbeat** zip file for windows: 
@@ -44,12 +49,12 @@ cd 'C:\Program Files\Packetbeat'
 ~~~
 - Then enable this script:
 ~~~
-PowerShell.exe -ExecutionPolicy UnRestricted -File .\install-service-packetbeat.ps1
+Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser 
 ~~~
 
 - You should see a warning message like this & type **R** to run:
 ~~~
-PS C:\Program Files\Packetbeat> PowerShell.exe -ExecutionPolicy UnRestricted -File .\install-service-packetbeat.ps1
+ .\install-service-packetbeat.ps1
 
 Security warning
 Run only scripts that you trust. While scripts from the internet can be useful, this script can potentially harm your
@@ -90,6 +95,21 @@ DisplayName : packetbeat
 
 ~~~
 
+- or this:
+
+~~~
+PS C:\Program Files\Packetbeat> .\install-service-packetbeat.ps1
+
+Security warning
+Run only scripts that you trust. While scripts from the internet can be useful, this script can potentially harm your
+computer. If you trust this script, use the Unblock-File cmdlet to allow the script to run without this warning
+message. Do you want to run C:\Program Files\Packetbeat\install-service-packetbeat.ps1?
+[D] Do not run  [R] Run once  [S] Suspend  [?] Help (default is "D"): r
+
+Status   Name               DisplayName
+------   ----               -----------
+Stopped  packetbeat         packetbeat
+~~~
 
 Once that is done then we can look for this file called **packetbeat.yml**.
 Then we will need to edit it.
