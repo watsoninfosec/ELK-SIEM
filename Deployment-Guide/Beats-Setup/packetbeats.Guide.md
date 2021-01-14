@@ -111,10 +111,10 @@ Status   Name               DisplayName
 Stopped  packetbeat         packetbeat
 ~~~
 
+- Note: You can re-run that script: **.\install-service-packetbeat.ps1**  to get the displayed: **__PARAMETERS** in the first script displayed above before.
+
 Once that is done then we can look for this file called **packetbeat.yml**.
 Then we will need to edit it.
-
-Note: This will be the usernames & password you created once before in the **Security-Module** 
 
 - Edit this portion in the file below :point_down: with your IP address:
 
