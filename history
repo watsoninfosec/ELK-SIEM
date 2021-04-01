@@ -1,0 +1,368 @@
+    1  clear
+    2  cd  /etc/netplan/
+    3  ls 
+    4  cat 00-installer-config.yaml 
+    5  nano 00-installer-config.yaml 
+    6  clear
+    7  sudo netplan apply
+    8  exit
+    9  cd /etc/elasticsearch/
+   10  ls
+   11  cd ..
+   12  cd /usr/share/elasticsearch/
+   13  ls
+   14  bin/elasticsearch-certutil cert -name kibana-server -dns edrsiem,172.16.100.126
+   15  ls
+   16  mv kibana-server.p12 /home/edr/
+   17  cd /home/edr/
+   18  chmod 777 kibana-server.p12 
+   19  sudo nano /etc/kibana/kibana.yml
+   20  sudo nano /etc/elasticsearch/elasticsearch.yml 
+   21  sudo nano /etc/kibana/kibana.yml
+   22  service stop kibana
+   23  systemctl stop kibana
+   24  sudo nano /etc/kibana/kibana.yml
+   25  systemctl start kibana
+   26  systemctl status kibana
+   27  clear
+   28  sudo nano /etc/kibana/kibana.yml
+   29  systemctl stop kibana
+   30  sudo nano /etc/kibana/kibana.yml
+   31  systemctl start kibana
+   32  systemctl status kibana
+   33  clear
+   34  sudo nano /etc/kibana/kibana.yml
+   35  sudo nano /etc/elasticsearch/elasticsearch.yml 
+   36  sudo nano /etc/kibana/kibana.yml
+   37  sudo nano /etc/elasticsearch/elasticsearch.yml 
+   38  clear
+   39  systemctl stop elasticsearch
+   40  systemctl status elasticsearch
+   41  clear
+   42  systemctl start elasticsearch
+   43  systemctl status elasticsearch
+   44  clear
+   45  systemctl status elasticsearch
+   46  sudo nano /etc/elasticsearch/elasticsearch.yml 
+   47  ls -l
+   48  cd /etc/elasticsearch/
+   49  ls -l
+   50  clear
+   51  ls -l
+   52  mc elasticsearch.yml elasticsearch.yml.bak
+   53  cp elasticsearch.yml elasticsearch.yml.bak
+   54  clear
+   55  ls -l
+   56  systemctl stop elasticsearch
+   57  rm elasticsearch.yml
+   58  ls 
+   59  ls -l
+   60  nano elasticsearch.yml
+   61  rm elasticsearch.yml.bak 
+   62  ls -l
+   63  clear
+   64  nano elasticsearch.yml
+   65  systemctl start elasticsearch
+   66  systemctl status elasticsearch
+   67  clear
+   68  systemctl status elasticsearch
+   69  clear
+   70  systemctl status elasticsearch
+   71  clear
+   72  systemctl status elasticsearch
+   73  clear
+   74  nano elasticsearch.yml
+   75  exit
+   76  systemctl service logstash restart
+   77  systemctl logstash restart
+   78  systemctl service logstash stop
+   79  systemctl logstash stop
+   80  systemctl logstash service stop
+   81  sudo service logstash restart
+   82  sudo /usr/share/logstash/bin/logstash -f /etc/logstash/conf.d/logstash-syslog/syslog-tcp-forward.conf
+   83  nano /etc/elasticsearch/elasticsearch.yml 
+   84  ls
+   85  cd conf.d/
+   86  ls
+   87  cd logstash-syslog/
+   88  ls
+   89  nano syslog
+   90  clear
+   91  cd ..
+   92  ls
+   93  cd conf.d/
+   94  ls
+   95  cd logstash-syslog/
+   96  ls
+   97  nano syslog
+   98  ls -l
+   99  cd ..
+  100  ls
+  101  cd ..
+  102  ls
+  103  cd ..
+  104  ls
+  105  exit
+  106  ls -l
+  107  clear
+  108  ls
+  109  cd /
+  110  cd ca/
+  111  ls
+  112  cat ca.crt 
+  113  clear
+  114  nano /usr/share/elasticsearch/instances.yml
+  115  cat /usr/share/elasticsearch/instances.yml
+  116  pwd
+  117  clear
+  118  /usr/share/elasticsearch/bin/elasticsearch-certutil cert --ca-cert /ca.crt --ca-key /ca.key --pem --in instances.yml --out certs.zip
+  119  ls
+  120  cd /usr/share/elasticsearch/
+  121  ls
+  122  cd /ca/
+  123  ls
+  124  cd /
+  125  ls
+  126  clear
+  127  ls -l
+  128  cd /
+  129  cd /ca/
+  130  ls
+  131  clear
+  132  /usr/share/elasticsearch/bin/elasticsearch-certutil cert --ca-cert ca.crt --ca-key ca.key --pem --in instances.yml --out certs.zip
+  133  clear
+  134  pwd
+  135  /usr/share/elasticsearch/bin/elasticsearch-certutil cert --ca-cert /ca/ca.crt --ca-key /ca/ca.key --pem --in instances.yml --out certs.zip
+  136  ls
+  137  cd /usr/share/elasticsearch/
+  138  clear
+  139  ls -l
+  140  unzip certs.zip 
+  141  ls
+  142  nano /etc/elasticsearch/elasticsearch.yml 
+  143  pwd
+  144  ls
+  145  nano /etc/elasticsearch/elasticsearch.yml 
+  146  systemctl restart elasticsearch
+  147  journalctl -xe
+  148  clear
+  149  ls -l
+  150  chown -R elasticsearch:elasticsearch elasticsearch/
+  151  systemctl restart elasticsearch
+  152  systemctl status elasticsearch
+  153  cat /var/log/elasticsearch/elasticsearch.log 
+  154  clear
+  155  ls -l
+  156  cd elasticsearch/
+  157  ls
+  158  ls -l
+  159  cd /etc/elasticsearch/
+  160  clear
+  161  ls -l
+  162  clear
+  163  cat 
+  164  cat /etc/systemd/system/multi-user.target.wants/elasticsearch.service
+  165  chown -R elasticsearch:elasticsearch /etc/elasticsearch/
+  166  ls -l
+  167  mkdir certs
+  168  cp /usr/share/elasticsearch/elasticsearch/* certs/
+  169  clear
+  170  ls certs/
+  171  ls -l
+  172  chown -R elasticsearch:elasticsearch certs/
+  173  ls -l
+  174  nano elasticsearch.yml 
+  175  pwd
+  176  clear
+  177  nano elasticsearch.yml 
+  178  cp /ca/* certs/
+  179  cd certs/
+  180  ls -l
+  181  mkdir ca
+  182  mv ca.* ca/
+  183  ls -l
+  184  chown -R elasticsearch:elasticsearch ca/
+  185  ls -l
+  186  cd ca/`
+  187  cd ca/
+  188  ls -l
+  189  cd ..
+  190  clear
+  191  systemctl restart elasticsearch
+  192  clear
+  193  systemctl status elasticsearch
+  194  clear
+  195  cd /etc/kibana/
+  196  ls -l
+  197  mkdir certs
+  198  cp /usr/share/elasticsearch/kibana/* certs/
+  199  cd certs/
+  200  ls
+  201  mkdir ca
+  202  cp /etc/elasticsearch/certs/ca/* ca/
+  203  ls -l
+  204  cd ca/
+  205  ls -l
+  206  clear
+  207  ls -l
+  208  chown -R kibana:kibana /etc/kibana/
+  209  nano /etc/kibana/kibana.yml 
+  210  clea
+  211  clear
+  212  systemctl restart kibana
+  213  systemctl status kibana
+  214  clear
+  215  ls -l
+  216  cat ca.crt
+  217  ls
+  218  cd /usr/share/elasticsearch/
+  219  ls
+  220  nano instances.yml 
+  221  clear
+  222  nano instances.yml 
+  223  openssl x509 -in /etc/kibana/certs/kibana.crt -text -noout 
+  224  clear
+  225  cat /var/log/syslog
+  226  cat /var/log/syslog | grep kibana
+  227  nano /etc/kibana/kibana.yml 
+  228  clear
+  229  systemctl restart kibana
+  230  history
+  231  history>history.txt
+  232  clear
+  233  nano /etc/
+  234  ls
+  235  cd ..
+  236  ls
+  237  cd ..
+  238  cd /etc/elasticsearch/
+  239  ls
+  240  nano elasticsearch.
+  241  nano elasticsearch.yml 
+  242  cd //
+  243  ls
+  244  cd home/
+  245  ls
+  246  cd edr/
+  247  ls
+  248  ls -l
+  249  wget https://artifacts.elastic.co/downloads/beats/packetbeat/packetbeat-7.12.0-amd64.deb
+  250  ls
+  251  dpkg --install packetbeat-7.12.0-amd64.deb 
+  252  apt-get install -f
+  253  cd /etc/packetbeat/
+  254  ls
+  255  la -l
+  256  nano packetbeat.yml 
+  257  /packetbeat -e -c packetbeat.yml
+  258  .\packetbeat -e -c packetbeat.yml
+  259  ls
+  260  cd /usr/share/packetbeat/bin/
+  261  ls
+  262  .\packetbeat -e -c packetbeat.yml
+  263  ls
+  264  cd ..packetbeat.yml 
+  265  cd ..
+  266  cd /etc/packetbeat/
+  267  ls
+  268  nano packetbeat.yml 
+  269  packetbeat setup -e
+  270  systemctl start packetbeat
+  271  systemctl status packetbeat
+  272  ls
+  273  nano packetbeat.yml 
+  274  ls
+  275  cd /usr/share/packetbeat/bin/
+  276  ls
+  277  ./packetbeat -e
+  278  ls
+  279  ls/etc/packetbeat
+  280  cd /etc/packetbeat
+  281  ls
+  282  ./packetbeat -e packetbeat.yml 
+  283  clear
+  284  ls
+  285  cd ..
+  286  cd /usr/share/packetbeat/bin/
+  287  ls
+  288  ./packetbeat -e
+  289  ./packetbeat -e /etc/packetbeat/packetbeat.yml 
+  290  ./packetbeat setup -e /etc/packetbeat/packetbeat.yml 
+  291  packetbeat setup -e /etc/packetbeat/packetbeat.yml 
+  292  systemctl  packetbeat
+  293  systemctl status packetbeat
+  294  systemctl restart elasticsearch
+  295  systemctl status elasticsearch
+  296  clear
+  297  systemctl status packetbea
+  298  systemctl status packetbeat
+  299  systemctl  elasticsearch
+  300  systemctl stop kibana
+  301  systemctl stop elasticsearch
+  302  systemctl stop packetbeat
+  303  reboot
+  304  systemctl status elasticsearch
+  305  systemctl restart elasticsearch
+  306  systemctl stop elasticsearch
+  307  systemctl restart elasticsearch
+  308  systemctl status elasticsearch
+  309  systemctl status kibana
+  310  ls1
+  311  systemctl status logstash
+  312  clear
+  313  ls
+  314  mkdir logs
+  315  cd logs/
+  316  git clone https://github.com/patrickjennings/logstash-pfsense.git
+  317  ls
+  318  cd logstash-pfsense/
+  319  ls
+  320  clear
+  321  cd conf.d/
+  322  ls
+  323  nano 10-syslog.conf 
+  324  ls -l
+  325  cd ..
+  326  ls
+  327  cd /etc/logstash/
+  328  ls
+  329  cd conf.d/
+  330  ls
+  331  cd ..
+  332  ls
+  333  nano logstash.yml 
+  334  cd /logs/logstash-pfsense
+  335  ls
+  336  cd conf.d/
+  337  ls
+  338  cd /
+  339  cd /home/edr/logs/logstash-pfsense/
+  340  ls
+  341  cd conf.d/
+  342  ls
+  343  cp * /etc/logstash/
+  344  cd ..
+  345  cd patterns/
+  346  ls
+  347  cp * /etc/logstash/
+  348  systemctl restart logstash
+  349  ls
+  350  ccd /etc/logstash/
+  351  cd /etc/logstash/
+  352  ls
+  353  nano 10-syslog.conf 
+  354  systemctl stop logstash
+  355  systemctl stop kibana
+  356  systemctl stop elasticsearch
+  357  clear
+  358  ls -l
+  359  systemctl status elasticsearch
+  360  systemctl status 
+  361  systemctl stop elasticsearch
+  362  systemctl status elasticsearch
+  363  systemctl status logstash
+  364  systemctl stop logstash
+  365  systemctl status logstash
+  366  shutdown now
+  367  history
+  368  history>history

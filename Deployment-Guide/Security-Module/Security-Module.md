@@ -1,26 +1,40 @@
-# Securing our ELK-SIEM
+# Revised: EDRSIEM Encryption SSL/TLS Setup
 
-This guide will walk you through on setting up security of your ELK-SIEM so that basic security features will be enabled.
+This process we will setup our certificates for the encrypted communications between Kibana & Elasticsearch and Fleet Agents.
 
-- First Step navigate to the Elasticsearch folder location.
+- First step navigate to the Elasticsearch folder location.
 
 ~~~
 cd  /usr/share/elasticsearch/
 ~~~
 
-- List the contents of the directory:
+Note: This section is part of the **EDR Fleet Agent!**
+- Now create this file: **instances.yml**
 
 ~~~
-ls
+sudo nano instances.yml
 ~~~
 
-- Now execute elasticsearch-certutil and create a --pem file:
+- Then add these contents into the file.
+
+Note: Don't forget to change the IP address:
+
+~~~
+instances:
+    - name: "elasticsearch"
+      ip:
+        - "192.168.0.25"
+    - name: "kibana"
+      ip:
+        - "192.168.0.25"
+~~~
+
+- Now execute elasticsearch-certutil and create a root CA --pem zip file:
 
 ~~~
 sudo bin/elasticsearch-certutil ca --pem
 ~~~
-
-This will prompt you to create the Certificate zip file. You can leave it to the defaults. We will rename the cert later!
+- This CA --pem we will need later for Deployment at scale via AD.
 
 Next: Install unzip application.
 
@@ -36,30 +50,98 @@ sudo apt install zip unzip -y
 sudo unzip elastic-stack-ca.zip
 ~~~
 
-- The cert folder name should be **ca**
-- Then move the ca into the root folder: 
+### Note: This section is the re-write of the **CA Authority**.
+
+### This will redo the SSL/TLS encryption Certificates to create the EDR SIEM function called: **Fleet Agents!**
+
+- Then run this command to create the Elasticsearch & Kibana Certificates:
 
 ~~~
-sudo mv ca /
+/usr/share/elasticsearch/bin/elasticsearch-certutil cert --ca-cert /ca/ca.crt --ca-key /ca/ca.key --pem --in instances.yml --out certs.zip
+
 ~~~
 
-- Then cd into the root directory:
+- Then unzip certs.zip file:
+  
+~~~
+unzip certs.zip
+~~~
+
+- Now we need to move the Elasticsearch certificates to certs:
+
+~~~
+mv /usr/share/elasticsearch/elasticsearch/* certs/
+~~~
+
+- Now we need to move the Kibana certificates to certs:
+
+~~~
+mv /usr/share/elasticsearch/kibana/* certs/
+~~~
+
+- Make these directories for the certificate move:
+~~~
+mkdir /etc/kibana/certs
+mkdir /etc/kibana/certs/ca
+mkdir /etc/elasticsearch/certs/ca
+~~~
+
+
+- Now copy the certificates to them directories:
+~~~
+cp ca/ca.* /etc/kibana/certs/
+cp ca/ca.* /etc/elasticsearch/certs/ca/
+cp certs/elasticsearch.* /etc/elasticsearch/certs/
+cp certs/kibana.* /etc/kibana/certs/
+~~~
+
+
+
+- Now lets clean up a bit:
+
+~~~
+sudo rm -r elasticsearch/ kibana/
+~~~
+
+## "Warning"
+
+Note: 
+
+This is only for the rebuild only and not for the initial build.
+This will only work if you created this build from the last deployment only.
 
 ~~~
 cd /
+
+sudo rm -r /ca/ 
 ~~~
 
-At this point once the cert has been unzipped you can change the name by copying the file into another file.
 
-This is just to change the name from default if you want to.
-
-- Example:
+- Now let change some permissions:
 
 ~~~
-cd ca/
-sudo cp ca.crt mycertname.crt
-sudo cp ca.key mycertname.key
+cd /user/share
 ~~~
+
+- Change folder permissions:
+
+~~~
+chown -R elasticsearch:elasticsearch elasticsearch/
+chown -R elasticsearch:elasticsearch /etc/elasticsearch/
+cd elasticsearch
+chown -R elasticsearch:elasticsearch certs/
+~~~
+
+- Now lets change the permissions for CA/:
+
+~~~
+chown -R elasticsearch:elasticsearch ca/
+~~~
+
+Note: Since we redid our certs, we now have to change everything.
+
+- Now lets move these CA's to the correct place now.
+
 
 - Lets go back and edit this file again:
 ~~~
@@ -71,16 +153,35 @@ Now uncomment (#) hash signs and edit the values below to match your values you 
 - Change the values to match the location path of the certs you created:
 
 ~~~
+
 server.ssl.enabled: true
-server.ssl.certificate: /ca/ca.crt
-server.ssl.key: /ca/ca.key
+server.ssl.certificate: /etc/kibana/certs/ca/ca.crt
+server.ssl.key: /etc/kibana/certs/ca/ca.key
 ~~~
 
-- Now restart Kibana & Elasticsearch:
+Note: You can copy and replace these settings if you like.
+
+- Now make the changes to Kibana to match thses settings:
+
+~~~
+elasticsearch.hosts: ["https://192.168.0.25:9200"]
+elasticsearch.ssl.certificateAuthorities: ["/etc/kibana/certs/ca/ca.crt"]
+elasticsearch.ssl.certificate: "/etc/kibana/certs/kibana.crt"
+elasticsearch.ssl.key: "/etc/kibana/certs/kibana.key"
+~~~
+
+~~~
+
+server.ssl.enabled: true
+server.ssl.certificate: "/etc/kibana/certs/kibana.crt"
+server.ssl.key: "/etc/kibana/certs/kibana.key"
+
+~~~
+
+- Now restart Kibana :
 
 ~~~
 sudo systemctl restart kibana
-sudo systemctl restart elasticsearch
 ~~~
 
 
@@ -89,11 +190,24 @@ sudo systemctl restart elasticsearch
 ~~~
 sudo nano /etc/elasticsearch/elasticsearch.yml
 ~~~
+
 - Security Feature:
 
 ~~~
 xpack.security.enabled: true
 xpack.security.authc.api_key.enabled: true
+
+xpack.security.transport.ssl.enabled: true
+xpack.security.transport.ssl.verification_mode: certificate
+xpack.security.transport.ssl.key: /etc/elasticsearch/certs/elasticsearch.key
+xpack.security.transport.ssl.certificate: /etc/elasticsearch/certs/elasticsearch.crt
+xpack.security.transport.ssl.certificate_authorities: [ "/etc/elasticsearch/certs/ca/ca.crt" ]
+
+xpack.security.http.ssl.enabled: true
+xpack.security.http.ssl.verification_mode: certificate
+xpack.security.http.ssl.key: /etc/elasticsearch/certs/elasticsearch.key
+xpack.security.http.ssl.certificate: /etc/elasticsearch/certs/elasticsearch.crt
+xpack.security.http.ssl.certificate_authorities: [ "/etc/elasticsearch/certs/ca/ca.crt" ]
 ~~~
 
 - In your Kibana.yml files and add this security feature at the end of the file:
@@ -149,13 +263,43 @@ This will create the system users for the login.
 sudo systemctl restart kibana
 ~~~
 
+
+#Verify Your Certificates
+
+We must Verify our certificates are correct just make sure we got it right.
+
+Note: You Root CA should be the: **ca.crt**
+
+~~~
+openssl x509 -in /etc/elasticsearch/certs/elasticsearch.crt -text -noout
+~~~
+
+- Look for: Subject: CN = elasticsearch | Subject Alternative Name: IP Address: e.g 192.168.0.25
+
+~~~
+openssl x509 -in /etc/kibana/certs/kibana.crt -text -noout
+~~~
+
+- Look for: Subject: Subject: CN = kibana | Subject Alternative Name: IP Address: e.g 192.168.0.25
+
+~~~
+openssl x509 -in /etc/kibana/certs/ca/ca.crt -text -noout
+~~~
+
+- Look for:  Basic Constraints: critical CA:TRUE
+
+Note: This is your Root CA!
+
 - Now to access Kibana type in your IP address like this:
+
 > https://192.168.0.25:5601
 
 
-Once this process is setup you will now have a secure setup of Elasticseach + Kibana ELK-SIEM.
+Once this process is setup you will now have a secure setup of Elasticseach + Kibana ELKSIEM EDR.
 
-- You can login with the user: **elastic** then follow this guide to create your own user account:
+- You can login with the username: **elastic** & **Password** that was generated for you.
+
+Then follow this guide to create your own user account:
 
 > https://www.elastic.co/guide/en/elasticsearch/reference/current/get-started-users.html
 
@@ -175,4 +319,3 @@ We now have our security features enabled and working. We can now setup some bea
 
 So at this point you can navigate to the: **Wazuh Setup Guide** If you want to setup this machine as well: 
 > https://github.com/watsoninfosec/ELK-SIEM/blob/main/Deployment-Guide/Wazuh-Guide/Setup-Guide.md
-
