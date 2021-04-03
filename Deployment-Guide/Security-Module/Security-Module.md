@@ -57,42 +57,53 @@ sudo unzip elastic-stack-ca.zip
 - Then run this command to create the Elasticsearch & Kibana Certificates:
 
 ~~~
-/usr/share/elasticsearch/bin/elasticsearch-certutil cert --ca-cert /ca/ca.crt --ca-key /ca/ca.key --pem --in instances.yml --out certs.zip
+/usr/share/elasticsearch/bin/elasticsearch-certutil cert --ca-cert ca/ca.crt --ca-key ca/ca.key --pem --in instances.yml --out certs.zip
 
 ~~~
 
-- Then unzip certs.zip file:
+- Then unzip certs.zip file & Create certs Directory:
   
 ~~~
 unzip certs.zip
+sudo mkdir certs
 ~~~
 
 - Now we need to move the Elasticsearch certificates to certs:
 
 ~~~
-mv /usr/share/elasticsearch/elasticsearch/* certs/
+sudo mv /usr/share/elasticsearch/elasticsearch/* certs/
 ~~~
 
 - Now we need to move the Kibana certificates to certs:
 
 ~~~
-mv /usr/share/elasticsearch/kibana/* certs/
+sudo mv /usr/share/elasticsearch/kibana/* certs/
 ~~~
 
 - Make these directories for the certificate move:
 ~~~
-mkdir /etc/kibana/certs
-mkdir /etc/kibana/certs/ca
-mkdir /etc/elasticsearch/certs/ca
+sudo mkdir /etc/kibana/certs
+sudo mkdir /etc/kibana/certs/ca
+sudo mkdir /etc/elasticsearch/certs/ca
+~~~
+
+- Now change to Root:
+
+~~~
+sudo su
+cd /etc/elasticsearch/
+mkdir ca
+exit
 ~~~
 
 
 - Now copy the certificates to them directories:
 ~~~
-cp ca/ca.* /etc/kibana/certs/
-cp ca/ca.* /etc/elasticsearch/certs/ca/
-cp certs/elasticsearch.* /etc/elasticsearch/certs/
-cp certs/kibana.* /etc/kibana/certs/
+sudo mkdir /etc/elasticsearch/certs
+sudo cp ca/ca.* /etc/kibana/certs/ca
+sudo cp ca/ca.* /etc/elasticsearch/certs/ca
+sudo cp certs/elasticsearch.* /etc/elasticsearch/certs/
+sudo cp certs/kibana.* /etc/kibana/certs/
 ~~~
 
 
@@ -120,7 +131,7 @@ sudo rm -r /ca/
 - Now let change some permissions:
 
 ~~~
-cd /user/share
+cd /usr/share
 ~~~
 
 - Change folder permissions:
@@ -155,8 +166,9 @@ Now uncomment (#) hash signs and edit the values below to match your values you 
 ~~~
 
 server.ssl.enabled: true
-server.ssl.certificate: /etc/kibana/certs/ca/ca.crt
-server.ssl.key: /etc/kibana/certs/ca/ca.key
+server.ssl.certificate: "/etc/kibana/certs/kibana.crt"
+server.ssl.key: "/etc/kibana/certs/kibana.key"
+
 ~~~
 
 Note: You can copy and replace these settings if you like.
@@ -170,13 +182,6 @@ elasticsearch.ssl.certificate: "/etc/kibana/certs/kibana.crt"
 elasticsearch.ssl.key: "/etc/kibana/certs/kibana.key"
 ~~~
 
-~~~
-
-server.ssl.enabled: true
-server.ssl.certificate: "/etc/kibana/certs/kibana.crt"
-server.ssl.key: "/etc/kibana/certs/kibana.key"
-
-~~~
 
 - Now restart Kibana :
 
