@@ -1,4 +1,4 @@
-# Revised: EDRSIEM Encryption SSL/TLS Setup
+### Revised: EDRSIEM Encryption SSL/TLS Setup
 
 This process we will setup our certificates for the encrypted communications between Kibana & Elasticsearch and Fleet Agents.
 
@@ -50,9 +50,9 @@ sudo apt install zip unzip -y
 sudo unzip elastic-stack-ca.zip
 ~~~
 
-### Note: This section is the re-write of the **CA Authority**.
+#### Note: This section is the re-write of the **CA Authority**.
 
-### This will redo the SSL/TLS encryption Certificates to create the EDR SIEM function called: **Fleet Agents!**
+#### This will redo the SSL/TLS encryption Certificates to create the EDR SIEM function called: **Fleet Agents!**
 
 - Then run this command to create the Elasticsearch & Kibana Certificates:
 
@@ -80,26 +80,24 @@ sudo mv /usr/share/elasticsearch/elasticsearch/* certs/
 sudo mv /usr/share/elasticsearch/kibana/* certs/
 ~~~
 
-- Make these directories for the certificate move:
-~~~
-sudo mkdir /etc/kibana/certs
-sudo mkdir /etc/kibana/certs/ca
-sudo mkdir /etc/elasticsearch/certs/ca
-~~~
 
 - Now change to Root:
 
 ~~~
 sudo su
-cd /etc/elasticsearch/
-mkdir ca
-exit
+~~~
+
+- Make these directories for the certificate move:
+~~~
+sudo mkdir /etc/kibana/certs
+sudo mkdir /etc/kibana/certs/ca
+sudo mkdir /etc/elasticsearch/certs
+sudo mkdir /etc/elasticsearch/certs/ca
 ~~~
 
 
 - Now copy the certificates to them directories:
 ~~~
-sudo mkdir /etc/elasticsearch/certs
 sudo cp ca/ca.* /etc/kibana/certs/ca
 sudo cp ca/ca.* /etc/elasticsearch/certs/ca
 sudo cp certs/elasticsearch.* /etc/elasticsearch/certs/
@@ -116,18 +114,16 @@ sudo rm -r elasticsearch/ kibana/
 
 ## "Warning"
 
-Note: 
-
 This is only for the rebuild only and not for the initial build.
-This will only work if you created this build from the last deployment only.
+The below command will only work if you created this build from the last deployment only.
+This will remove the Root CA, that you copied above.
 
 ~~~
 cd /
-
 sudo rm -r /ca/ 
 ~~~
 
-
+Permission Changes Below.
 - Now let change some permissions:
 
 ~~~
@@ -221,6 +217,8 @@ xpack.security.http.ssl.certificate_authorities: [ "/etc/elasticsearch/certs/ca/
 sudo nano /etc/kibana/kibana.yml
 ~~~
 - Security Feature:
+
+Note: Please change **"something_at_least_32_characters"** to a Random String!
 
 ~~~
 xpack.security.enabled: true
