@@ -57,14 +57,14 @@ sudo unzip elastic-stack-ca.zip
 - Then run this command to create the Elasticsearch & Kibana Certificates:
 
 ~~~
-/usr/share/elasticsearch/bin/elasticsearch-certutil cert --ca-cert ca/ca.crt --ca-key ca/ca.key --pem --in instances.yml --out certs.zip
+sudo /usr/share/elasticsearch/bin/elasticsearch-certutil cert --ca-cert ca/ca.crt --ca-key ca/ca.key --pem --in instances.yml --out certs.zip
 
 ~~~
 
 - Then unzip certs.zip file & Create certs Directory:
   
 ~~~
-unzip certs.zip
+sudo unzip certs.zip
 sudo mkdir certs
 ~~~
 
@@ -80,12 +80,6 @@ sudo mv /usr/share/elasticsearch/elasticsearch/* certs/
 sudo mv /usr/share/elasticsearch/kibana/* certs/
 ~~~
 
-
-- Now change to Root:
-
-~~~
-sudo su
-~~~
 
 - Make these directories for the certificate move:
 ~~~
@@ -116,7 +110,7 @@ sudo rm -r elasticsearch/ kibana/
 
 This is only for the rebuild only and not for the initial build.
 The below command will only work if you created this build from the last deployment only.
-This will remove the Root CA, that you copied above.
+This will remove the Root CA, from the old build **"Warning"**.
 
 ~~~
 cd /
@@ -133,16 +127,16 @@ cd /usr/share
 - Change folder permissions:
 
 ~~~
-chown -R elasticsearch:elasticsearch elasticsearch/
-chown -R elasticsearch:elasticsearch /etc/elasticsearch/
+sudo chown -R elasticsearch:elasticsearch elasticsearch/
+sudo chown -R elasticsearch:elasticsearch /etc/elasticsearch/
 cd elasticsearch
-chown -R elasticsearch:elasticsearch certs/
+sudo chown -R elasticsearch:elasticsearch certs/
 ~~~
 
 - Now lets change the permissions for CA/:
 
 ~~~
-chown -R elasticsearch:elasticsearch ca/
+sudo chown -R elasticsearch:elasticsearch ca/
 ~~~
 
 Note: Since we redid our certs, we now have to change everything.
@@ -169,7 +163,7 @@ server.ssl.key: "/etc/kibana/certs/kibana.key"
 
 Note: You can copy and replace these settings if you like.
 
-- Now make the changes to Kibana to match thses settings:
+- Now make the changes to the IP address for you server IP below:
 
 ~~~
 elasticsearch.hosts: ["https://192.168.0.25:9200"]
@@ -179,10 +173,11 @@ elasticsearch.ssl.key: "/etc/kibana/certs/kibana.key"
 ~~~
 
 
-- Now restart Kibana :
+- Now restart Kibana & check status:
 
 ~~~
 sudo systemctl restart kibana
+sudo systemctl status kibana
 ~~~
 
 
@@ -210,6 +205,18 @@ xpack.security.http.ssl.key: /etc/elasticsearch/certs/elasticsearch.key
 xpack.security.http.ssl.certificate: /etc/elasticsearch/certs/elasticsearch.crt
 xpack.security.http.ssl.certificate_authorities: [ "/etc/elasticsearch/certs/ca/ca.crt" ]
 ~~~
+
+- Now save the file and quit:
+~~~
+Ctrl + x
+~~~
+
+- Now reboot elasticsearch:
+
+~~~
+sudo systemctl restart elasticsearch
+~~~
+
 
 - In your Kibana.yml files and add this security feature at the end of the file:
 
@@ -274,19 +281,19 @@ We must Verify our certificates are correct just make sure we got it right.
 Note: You Root CA should be the: **ca.crt**
 
 ~~~
-openssl x509 -in /etc/elasticsearch/certs/elasticsearch.crt -text -noout
+sudo openssl x509 -in /etc/elasticsearch/certs/elasticsearch.crt -text -noout
 ~~~
 
 - Look for: Subject: CN = elasticsearch | Subject Alternative Name: IP Address: e.g 192.168.0.25
 
 ~~~
-openssl x509 -in /etc/kibana/certs/kibana.crt -text -noout
+sudo openssl x509 -in /etc/kibana/certs/kibana.crt -text -noout
 ~~~
 
 - Look for: Subject: Subject: CN = kibana | Subject Alternative Name: IP Address: e.g 192.168.0.25
 
 ~~~
-openssl x509 -in /etc/kibana/certs/ca/ca.crt -text -noout
+sudo openssl x509 -in /etc/kibana/certs/ca/ca.crt -text -noout
 ~~~
 
 - Look for:  Basic Constraints: critical CA:TRUE
