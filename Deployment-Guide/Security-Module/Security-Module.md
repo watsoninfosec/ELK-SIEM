@@ -1,4 +1,4 @@
-### Revised: EDRSIEM Encryption SSL/TLS Setup
+### Revised: EDRSIEM Setup Guide
 
 This process we will setup our certificates for the encrypted communications between Kibana & Elasticsearch and Fleet Agents.
 
