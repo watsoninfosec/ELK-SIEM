@@ -36,8 +36,12 @@ What is Kibana?
 
 - Hosting Server Software 
 
-- ubuntu Server 18.04 & 20.04 LTS **#Option 3**
+- Ubuntu Server 18.04 LTS **#Option 2:**
 > https://ubuntu.com/download/server
+
+- Direct Download:
+
+> https://releases.ubuntu.com/18.04.5/ubuntu-18.04.5-live-server-amd64.iso
 
 - The Hypervisor that you use is up to you but, the process is still the same.
 - You can use linux or windows for the base hypervisor install.
@@ -79,10 +83,10 @@ You will need physical hardware to install.
 > https://github.com/watsoninfosec/ELK-SIEM/blob/main/Deployment-Guide/Beats-Setup/packetbeats.Guide.md
 
 - Elastic Fleet-Module Guide: 
-> https://github.com/watsoninfosec/private/blob/main/Deployment-Guide/Fleet-Agent/Fleet-Module.md
+> https://github.com/watsoninfosec/ELK-SIEM/blob/main/Deployment-Guide/Fleet-Agent/Fleet-Module.md
 
 - Elastic Fleet-Agent-Enrollment Guide:
-> https://github.com/watsoninfosec/private/blob/main/Deployment-Guide/Fleet-Agent/Fleet-Agent-Enrollment.md
+> https://github.com/watsoninfosec/ELK-SIEM/blob/main/Deployment-Guide/Fleet-Agent/Fleet-Agent-Enrollment.md
 -----------------------
 
 
