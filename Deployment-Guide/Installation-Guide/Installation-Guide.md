@@ -1,12 +1,12 @@
 # Install Guide & Build Instructions
 
-This setup guide will show you how to create an Elasticsearch + Kibana ELK-SIEM.
+This setup guide will show you how to create an ElasticSIEM Server.
 
 I have listed some install steps below to help you re-create the same install build that I created. This will be a simple install out-of-box deployment.
 
 ## Requirements
 
-- **Ubuntu** 18.04 or 20.04 LTS Linux distribution.
+- **Ubuntu** Ubuntu 18.04 LTS Linux distribution.
 - **Java** 8
 - **Git repository**
 - **Elastic repository** 
@@ -15,13 +15,13 @@ I have listed some install steps below to help you re-create the same install bu
 
 - **Some of these Requiements are already installed in Ubuntu!**
 
-## Ubuntu 18.04 & 20.04 LTS
+## Ubuntu 18.04 LTS Linux Distribution
 
  First we need to install ubuntu, this can be on a VMware or Oracle VirtualBox setup. Or if you have the physical hardware to spare that will work as well.
 
 Note: Just make sure you have SSH access enabled once the server install is completed and know the IP address of the machine. Or that you can login through the GUI and open a Terminal.
 
-Note: To configure a static IP address on your Ubuntu 18.04 & 20.04 LTS server you need to modify a relevant netplan network configuration file within **/etc/netplan/** directory.
+Note: To configure a static IP address on your Ubuntu 18.04 LTS server you need to modify a relevant netplan network configuration file within **/etc/netplan/** directory.
 
 - Configure a static IP address:
 
@@ -91,7 +91,7 @@ sudo netplan --debug apply
 
 The ELK stack requires Java 8 to be installed. Some components are compatible with Java 9, but not Logstash
 
-- Before we install our ELK-SIEM, we will need to update our Ubuntu Distro first.
+- Before we install our ElasticSIEM, we will need to update our Ubuntu Server first.
 - Open a Terminal or SSH connection and login and type this commands.
 
 ~~~
@@ -110,13 +110,7 @@ sudo apt-get dist-upgrade -y
 sudo reboot
 ~~~
 
-Note: Lets check your Java version to see if it is installed, enter the following:
-
-~~~
-java -version
-~~~
-
-* If Java is installed and it's the right version, skip this step!
+## Login and finish the **Setup Process.**
 
 - Install java Version 8:
 
@@ -125,17 +119,15 @@ sudo apt-get install openjdk-8-jdk -y
 java -version
 ~~~
 
-Now lets add our Elastcisearch Repos into our system:
+Now lets add the Elastic Repos into our system!
 
-- Elastic repositories enable access to all the open-source software in the ELK stack. To add them, start by importing the GPG key.
-
-+ Add Elastic Repository
++ Add Elastic Repository:
 ~~~
 
 wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
 ~~~
 
-- The system should respond with OK.
+The system should respond with OK.
 
 - Next, install the apt-transport-https package:
 
@@ -412,7 +404,7 @@ hosts: ["192.168.0.25:5044"]
 - Next, enable the Filebeat system module, which will examine local system logs:
 
 ~~~
-sudo filebeat modules enable system
+sudo filebeat modules enable system netflow
 ~~~
 
 Note: Remeber to change **localhost** with you system IP addresss!
@@ -439,7 +431,7 @@ curl -XGET http://192.168.0.25:9200/_cat/indices?v
 
 ## Conclusion
 
-Now you have a functional ELK-SIEM stack installed on your Ubuntu system. I recommend defining your requirements and start adjusting your ELK-SIEM for your needs. This powerful monitoring tool can be customized for individual use cases.
+Now you have a functional ElasticSIEM stack installed on your Ubuntu system. I recommend defining your requirements and start adjusting your ElasticSIEM for your needs. This powerful monitoring tool can be customized for individual use cases.
 
 Customize data streams with Logstash, use different Beats modules to gather various types of data, and utilize Kibana for easy browsing through log files.
 

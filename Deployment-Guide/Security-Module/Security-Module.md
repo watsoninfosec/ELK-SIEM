@@ -1,14 +1,14 @@
-### Revised: EDRSIEM Setup Guide
+### Revised: ElasticSIEM Setup Guide
 
-This process we will setup our certificates for the encrypted communications between Kibana & Elasticsearch and Fleet Agents.
+This setup process is for creating the **Elasticsearch** & **Kibana** Certificates for the **Fleet Agent** enrollment stage.
 
-- First step navigate to the Elasticsearch folder location.
+- First step is to navigate to the Elasticsearch folder location.
 
 ~~~
 cd  /usr/share/elasticsearch/
 ~~~
 
-Note: This section is part of the **EDR Fleet Agent!**
+Note: This section is part of the **Elastic Fleet Agent!**
 - Now create this file: **instances.yml**
 
 ~~~
@@ -50,9 +50,7 @@ sudo apt install zip unzip -y
 sudo unzip elastic-stack-ca.zip
 ~~~
 
-#### Note: This section is the re-write of the **CA Authority**.
-
-#### This will redo the SSL/TLS encryption Certificates to create the EDR SIEM function called: **Fleet Agents!**
+#### In this section we will use our Root CA and generate two new certificates for: **Elasticsearch** & **Kibana.**
 
 - Then run this command to create the Elasticsearch & Kibana Certificates:
 
@@ -61,11 +59,10 @@ sudo /usr/share/elasticsearch/bin/elasticsearch-certutil cert --ca-cert ca/ca.cr
 
 ~~~
 
-- Then unzip certs.zip file & Create certs Directory:
+- Then unzip certs.zip file:
   
 ~~~
 sudo unzip certs.zip
-sudo mkdir certs
 ~~~
 
 - Now we need to move the Elasticsearch certificates to certs:
@@ -106,16 +103,6 @@ sudo cp certs/kibana.* /etc/kibana/certs/
 sudo rm -r elasticsearch/ kibana/
 ~~~
 
-## "Warning"
-
-This is only for the rebuild only and not for the initial build.
-The below command will only work if you created this build from the last deployment only.
-This will remove the Root CA, from the old build **"Warning"**.
-
-~~~
-cd /
-sudo rm -r /ca/ 
-~~~
 
 Permission Changes Below.
 - Now let change some permissions:
@@ -139,9 +126,9 @@ sudo chown -R elasticsearch:elasticsearch certs/
 sudo chown -R elasticsearch:elasticsearch ca/
 ~~~
 
-Note: Since we redid our certs, we now have to change everything.
+Note: Since we created the **Elasticsearch** & **Kibana** certs, we now have to add the certs path to the configs.
 
-- Now lets move these CA's to the correct place now.
+Now lets add the certificates to the right path in the **kibana.yml** file.
 
 
 - Lets go back and edit this file again:
@@ -149,7 +136,7 @@ Note: Since we redid our certs, we now have to change everything.
 sudo nano /etc/kibana/kibana.yml
 ~~~
 
-Now uncomment (#) hash signs and edit the values below to match your values you created.
+Now uncomment (#) hash signs and edit the values below to match.
 
 - Change the values to match the location path of the certs you created:
 
@@ -161,9 +148,7 @@ server.ssl.key: "/etc/kibana/certs/kibana.key"
 
 ~~~
 
-Note: You can copy and replace these settings if you like.
-
-- Now make the changes to the IP address for you server IP below:
+- Now copy & make the changes to the IP address for you server IP configs below:
 
 ~~~
 elasticsearch.hosts: ["https://192.168.0.25:9200"]
@@ -206,10 +191,7 @@ xpack.security.http.ssl.certificate: /etc/elasticsearch/certs/elasticsearch.crt
 xpack.security.http.ssl.certificate_authorities: [ "/etc/elasticsearch/certs/ca/ca.crt" ]
 ~~~
 
-- Now save the file and quit:
-~~~
-Ctrl + x
-~~~
+Now save the file and quit.
 
 - Now reboot elasticsearch:
 
@@ -217,15 +199,19 @@ Ctrl + x
 sudo systemctl restart elasticsearch
 ~~~
 
+Note: Please change **"something_at_least_32_characters"** to a Random String!
 
-- In your Kibana.yml files and add this security feature at the end of the file:
+- Secure Site for Random Password Generator:
+
+> https://passwordsgenerator.net/#404
+
+In your Kibana.yml files add this security feature at the end of the file
 
 ~~~
 sudo nano /etc/kibana/kibana.yml
 ~~~
-- Security Feature:
 
-Note: Please change **"something_at_least_32_characters"** to a Random String!
+- Security Feature:
 
 ~~~
 xpack.security.enabled: true
@@ -241,7 +227,9 @@ sudo systemctl restart elasticsearch
 
 
 
-Once that is done we must create the system default users to be able to login and create our own username for access. Copy these logins to a secure place.
+Once that is done we must create the system default users to be able to login and create our own username for access. 
+
+**Copy these logins to a secure place**.
 
 - Run these command to create system users:
 
@@ -252,7 +240,7 @@ sudo ./elasticsearch-setup-passwords auto
 
 Note: Copy the user names and document them for safe keeping, because you will need these names later in your setup.
 
-- Now we must go back again and add our elastic user login creds:
+- Now we must go back again and add our **Kibana_system** user login creds:
 
 ~~~
 sudo nano /etc/kibana/kibana.yml
@@ -274,9 +262,9 @@ sudo systemctl restart kibana
 ~~~
 
 
-#Verify Your Certificates
+# Verify Your Certificates
 
-We must Verify our certificates are correct just make sure we got it right.
+We must Verify our certificates are correct just to make sure we got it right.
 
 Note: You Root CA should be the: **ca.crt**
 
@@ -309,11 +297,6 @@ Once this process is setup you will now have a secure setup of Elasticseach + Ki
 
 - You can login with the username: **elastic** & **Password** that was generated for you.
 
-Then follow this guide to create your own user account:
-
-> https://www.elastic.co/guide/en/elasticsearch/reference/current/get-started-users.html
-
-- Also, you can change passwords for the built in accounts if need be for security reasons.
 
 ## All set!
 
@@ -321,11 +304,12 @@ Then follow this guide to create your own user account:
 
 We now have our security features enabled and working. We can now setup some beats modules for more security data!
 
-- Packetbeats Module:
+### Fleet Server Module:
+
+> https://github.com/watsoninfosec/private/tree/main/Deployment-Guide/Fleet-Agent
+
+### Optional 
+
+### Packetbeats Module:
 
 > https://github.com/watsoninfosec/ELK-SIEM/blob/main/Deployment-Guide/Beats-Setup/packetbeats.Guide.md
-
-- Optional Setup Step!
-
-So at this point you can navigate to the: **Wazuh Setup Guide** If you want to setup this machine as well: 
-> https://github.com/watsoninfosec/ELK-SIEM/blob/main/Deployment-Guide/Wazuh-Guide/Setup-Guide.md

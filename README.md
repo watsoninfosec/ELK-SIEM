@@ -1,4 +1,4 @@
-# ELK-SIEM + Wazuh Deployment Guide
+# ElasticSIEM Build Guide
 
 [![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/Naereen/StrapDown.js/blob/master/LICENSE) [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/Naereen/StrapDown.js/graphs/commit-activity)
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/dwyl/esta/issues) 
@@ -6,17 +6,16 @@
  [![Anurag's github stats](https://github-readme-stats.vercel.app/api?username=watsoninfosec&theme=blue-green)](https://github.com/anuraghazra/github-readme-stats)
 
 ----
-- Creating an Elasticsearch + Kibana + Wazuh SIEM 
+### Creating an ElasticSIEM Overview!
 
-These documents are going to show you how I setup my ELK-SIEM + Wazuh workstations. This process can take a bit to complete and some parts are just import and you are done. Now these installs are two different devices, which are similar. While very different with how you ingest data and install agents. 
+These setup guides are going to show you how I setup my ElasticSIEM Server, this process can take a bit to complete, but once you are done. You will have a working ElasticSIEM and be able to start using it at once! This is a simple but advanced layout for you to follow. So if you are new, then don't worry this guide is for you too! 
 
 -----------------------
 Note:
-- This process was setup on a VMware ESXI 6.7.OU3B  and these machines are running 24/7. 
+- This build was setup on a VMware ESXI 6.7.OU3B and the virtual machines are running 24/7. 
 - Now if you wanna use that process then this setup guide is still the same.
 
 -----------------------
-
 
 
 I am trying to make this process simple are straight to the point. So that you can follow along and re-create the same setup that I have created.
@@ -31,22 +30,17 @@ What is Elasticsearch?
 What is Kibana?
 > https://www.elastic.co/guide/en/kibana/current/introduction.html
 
-What is Wazuh? 
-> https://documentation.wazuh.com/4.0/index.html
-
 -----------------------
 
 ## Required Software
-
 
 - Hosting Server Software 
 
 - ubuntu Server 18.04 & 20.04 LTS **#Option 3**
 > https://ubuntu.com/download/server
 
-- The Hypervisor that you use is up to you but, process is still the same.
+- The Hypervisor that you use is up to you but, the process is still the same.
 - You can use linux or windows for the base hypervisor install.
-
 
 -----------------------
 - VirtualBox for Windows or Linux Installs
@@ -73,7 +67,7 @@ You will need physical hardware to install.
 > https://my.vmware.com/web/vmware/evalcenter?p=free-esxi7
 
 -----------------------
-# Installation Guide ELK-SIEM Setup
+# Installation Guide ElasticSIEM Build
 
 - Install Elastic Stack Guide: 
 > https://github.com/watsoninfosec/ELK-SIEM/blob/main/Deployment-Guide/Installation-Guide/Installation-Guide.md
@@ -84,8 +78,11 @@ You will need physical hardware to install.
 - Elastic Beats Module Guide:
 > https://github.com/watsoninfosec/ELK-SIEM/blob/main/Deployment-Guide/Beats-Setup/packetbeats.Guide.md
 
-- Wazuh Install Guide: 
-> https://github.com/watsoninfosec/ELK-SIEM/blob/main/Deployment-Guide/Wazuh-Guide/Setup-Guide.md
+- Elastic Fleet-Module Guide: 
+> https://github.com/watsoninfosec/private/blob/main/Deployment-Guide/Fleet-Agent/Fleet-Module.md
+
+- Elastic Fleet-Agent-Enrollment Guide:
+> https://github.com/watsoninfosec/private/blob/main/Deployment-Guide/Fleet-Agent/Fleet-Agent-Install.md
 
 -----------------------
 
