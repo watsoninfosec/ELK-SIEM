@@ -126,7 +126,7 @@ Now we need to install that certificate now.
 
 # Certificate Has Been Installed!
 
-#### Now we nee to setup Kibana
+#### Now we need to setup Kibana
 
 Lets go back to our ElasticSIEM and run this command:
 
