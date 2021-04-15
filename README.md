@@ -82,8 +82,7 @@ You will need physical hardware to install.
 > https://github.com/watsoninfosec/private/blob/main/Deployment-Guide/Fleet-Agent/Fleet-Module.md
 
 - Elastic Fleet-Agent-Enrollment Guide:
-> https://github.com/watsoninfosec/private/blob/main/Deployment-Guide/Fleet-Agent/Fleet-Agent-Install.md
-
+> https://github.com/watsoninfosec/private/blob/main/Deployment-Guide/Fleet-Agent/Fleet-Agent-Enrollment.md
 -----------------------
 
 
