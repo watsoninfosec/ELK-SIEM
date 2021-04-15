@@ -275,7 +275,7 @@ Now we need to go back to our ElasticSIEM server and copy that certificate key.
 ![](https://github.com/watsoninfosec/ELK-SIEM/blob/main/Deployment-Guide/Fleet-Agent/screenshots/settings.png)
 
 
-Now we need to change localhost to the server Ip address.
+Now we need to change localhost to the server ip address.
 
 - Before: http://localhost:9200
 
@@ -285,9 +285,9 @@ Now we need to change localhost to the server Ip address.
 
 ![](https://github.com/watsoninfosec/ELK-SIEM/blob/main/Deployment-Guide/Fleet-Agent/screenshots/settings3.png)
 
-Once that is change hit enter to change it and it will look like mines above.
+Once that change is done, hit enter to change it and it will look like mines above.
 
-### Almost done, promise! Lets enable the dection rules.
+### Almost done, promise! Lets enable the detections rules.
 
 - So now click on the **Elastic** icon in the left hand corner:
 
