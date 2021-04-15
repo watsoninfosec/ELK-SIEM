@@ -213,12 +213,12 @@ Once that is done, create your new policy and give it a name. Then click on adva
 
 Now enter a Intergration name and description and click save intergration.
 
-- Once that is done then go to **Policies**:
 
 ![](https://github.com/watsoninfosec/ELK-SIEM/blob/main/Deployment-Guide/Fleet-Agent/screenshots/policy3.png)
 
+- Once that is done then go to **Policies**:
 
-- Then click on **Agent policy**:
+- Then click on your policy name under **Agent policy**:
 
 ![](https://github.com/watsoninfosec/ELK-SIEM/blob/main/Deployment-Guide/Fleet-Agent/screenshots/policy4.png)
 
