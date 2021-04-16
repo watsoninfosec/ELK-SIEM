@@ -318,8 +318,7 @@ Now select 600 rows then scroll back up to top. Then select **Rule** then **Bulk
 
 # ElasticSIEM EDR is Complete.
 
-Now we will continue to the next setup guide, and that is the **Fleet Agent Client Install**
+Now we will continue to the next setup guide, and that is the **Fleet Agent Enrollment Module**
 
-### **Agent Install Guide:**
 ### Fleet Agent Enrollment Module:
 > https://github.com/watsoninfosec/ELK-SIEM/blob/main/Deployment-Guide/Fleet-Agent/Fleet-Agent-Enrollment.md
