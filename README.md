@@ -18,7 +18,7 @@ Note:
 -----------------------
 
 
-I am trying to make this process simple are straight to the point. So that you can follow along and re-create the same setup that I have created.
+I am trying to make this process simple and straight to the point. So that you can follow along and re-create the same setup that I have created.
 
 ## Resource References:
 
