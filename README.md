@@ -6,7 +6,7 @@
  [![Anurag's github stats](https://github-readme-stats.vercel.app/api?username=watsoninfosec&theme=blue-green)](https://github.com/anuraghazra/github-readme-stats)
 
 ----
-### Creating an ElasticSIEM Overview!
+### ElasticSIEM Overview!
 
 These setup guides are going to show you how I setup my ElasticSIEM Server, this process can take a bit to complete, but once you are done. You will have a working ElasticSIEM and be able to start using it at once! This is a simple but advanced layout for you to follow. So if you are new, then don't worry this guide is for you too! 
 
