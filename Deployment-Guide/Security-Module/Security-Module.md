@@ -68,6 +68,7 @@ sudo unzip certs.zip
 - Now we need to move the Elasticsearch certificates to certs:
 
 ~~~
+sudo mkdir certs
 sudo mv /usr/share/elasticsearch/elasticsearch/* certs/
 ~~~
 
