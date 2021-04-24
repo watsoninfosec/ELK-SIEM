@@ -150,7 +150,7 @@ setup.kibana:
 
 This part will add **dns** information about the host.
 - Now lets add this block of text under **processors** and don't forget to change your **Nameserver1,Nameserver2** to your own DNS of you choice.
-  
+
 ~~~
 processors:
 - dns:
@@ -269,8 +269,6 @@ Start-Service packetbeat
 # Geoip Processor Setup Portion
 
 Let's enable the **geoip info**.
-
-Note: Remember to change **localhost** to your IP information.
 
 - Login Into your **ELKSIEM** server and go to your Dev Tools and paste this command:
 ```json
