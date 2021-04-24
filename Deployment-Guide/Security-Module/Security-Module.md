@@ -65,6 +65,12 @@ sudo /usr/share/elasticsearch/bin/elasticsearch-certutil cert --ca-cert ca/ca.cr
 sudo unzip certs.zip
 ~~~
 
+- Now create the **certs** directory:
+
+~~~
+sudo mkdir certs
+~~~
+
 - Now we need to move the Elasticsearch certificates to certs:
 
 ~~~
