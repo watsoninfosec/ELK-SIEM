@@ -221,6 +221,7 @@ sudo nano /etc/kibana/kibana.yml
 
 ~~~
 xpack.security.enabled: true
+xpack.security.session.idleTimeout: "30m"
 xpack.encryptedSavedObjects.encryptionKey: "something_at_least_32_characters"
 ~~~
 
