@@ -313,7 +313,7 @@ We now have our security features enabled and working. We can now setup some bea
 
 ### Fleet Server Module:
 
-> https://github.com/watsoninfosec/private/blob/main/Deployment-Guide/Fleet-Agent/Fleet-Module.md
+> https://github.com/watsoninfosec/ELK-SIEM/blob/main/Deployment-Guide/Fleet-Agent/Fleet-Module.md
 
 ### Optional 
 
