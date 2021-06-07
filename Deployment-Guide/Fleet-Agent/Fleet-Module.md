@@ -55,7 +55,7 @@ Now that you have acess to your server via WinSCP, lets go back to our ElasticSI
 - Navigate to this directory:
 
 ~~~
-sudo cd /usr/share/elasticsearch/ca
+cd /usr/share/elasticsearch/ca
 ~~~
 
 - Then we need to copy this certificate to your home drive:
